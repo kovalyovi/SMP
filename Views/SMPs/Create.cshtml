@@ -1,0 +1,53 @@
+﻿@model SacramentMeetingPlanner.Models.SMP
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>SMP</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="WardID" class="control-label"></label>
+                <select asp-for="WardID" class ="form-control" asp-items="ViewBag.WardID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PresidingID" class="control-label"></label>
+                <select asp-for="PresidingID" class ="form-control" asp-items="ViewBag.PresidingID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConductingID" class="control-label"></label>
+                <select asp-for="ConductingID" class ="form-control" asp-items="ViewBag.ConductingID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvocationID" class="control-label"></label>
+                <select asp-for="InvocationID" class ="form-control" asp-items="ViewBag.InvocationID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="BenedictionID" class="control-label"></label>
+                <select asp-for="BenedictionID" class ="form-control" asp-items="ViewBag.BenedictionID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
