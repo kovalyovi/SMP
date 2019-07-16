@@ -34,6 +34,26 @@
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="OpeningHymnID" class="control-label"></label>
+                <select asp-for="OpeningHymnID" class="form-control" asp-items="ViewBag.OpeningHymnID"></select>
+                <span asp-validation-for="OpeningHymnID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SacramentHymnID" class="control-label"></label>
+                <select asp-for="SacramentHymnID" class="form-control" asp-items="ViewBag.SacramentHymnID"></select>
+                <span asp-validation-for="SacramentHymnID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IntermediateHymnID" class="control-label"></label>
+                <select asp-for="IntermediateHymnID" class="form-control" asp-items="ViewBag.IntermediateHymnID"></select>
+                <span asp-validation-for="IntermediateHymnID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClosingHymnID" class="control-label"></label>
+                <select asp-for="ClosingHymnID" class="form-control" asp-items="ViewBag.ClosingHymnID"></select>
+                <span asp-validation-for="ClosingHymnID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="InvocationID" class="control-label"></label>
                 <select asp-for="InvocationID" class="form-control" asp-items="ViewBag.InvocationID"></select>
                 <span asp-validation-for="InvocationID" class="text-danger"></span>

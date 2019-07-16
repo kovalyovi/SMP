@@ -21,7 +21,7 @@ namespace SacramentMeetingPlanner.Controllers
         // GET: SMPs
         public async Task<IActionResult> Index()
         {
-            var sacramentMeetingPlannerContext = _context.SMP.Include(s => s.Benediction).Include(s => s.Conducting).Include(s => s.Invocation).Include(s => s.Presiding).Include(s => s.Ward);
+            var sacramentMeetingPlannerContext = _context.SMP.Include(s => s.Benediction).Include(s => s.ClosingHymn).Include(s => s.Conducting).Include(s => s.IntermediateHymn).Include(s => s.Invocation).Include(s => s.OpeningHymn).Include(s => s.Presiding).Include(s => s.SacramentHymn).Include(s => s.Ward);
             return View(await sacramentMeetingPlannerContext.ToListAsync());
         }
 
@@ -35,9 +35,13 @@ namespace SacramentMeetingPlanner.Controllers
 
             var sMP = await _context.SMP
                 .Include(s => s.Benediction)
+                .Include(s => s.ClosingHymn)
                 .Include(s => s.Conducting)
+                .Include(s => s.IntermediateHymn)
                 .Include(s => s.Invocation)
+                .Include(s => s.OpeningHymn)
                 .Include(s => s.Presiding)
+                .Include(s => s.SacramentHymn)
                 .Include(s => s.Ward)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (sMP == null)
@@ -51,11 +55,15 @@ namespace SacramentMeetingPlanner.Controllers
         // GET: SMPs/Create
         public IActionResult Create()
         {
-            ViewData["BenedictionID"] = new SelectList(_context.Set<Member>(), "ID", "ID");
-            ViewData["ConductingID"] = new SelectList(_context.Set<Member>(), "ID", "ID");
-            ViewData["InvocationID"] = new SelectList(_context.Set<Member>(), "ID", "ID");
-            ViewData["PresidingID"] = new SelectList(_context.Set<Member>(), "ID", "ID");
-            ViewData["WardID"] = new SelectList(_context.Set<Ward>(), "ID", "ID");
+            ViewData["BenedictionID"] = new SelectList(_context.Member, "ID", "ID");
+            ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
+            ViewData["ConductingID"] = new SelectList(_context.Member, "ID", "ID");
+            ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
+            ViewData["InvocationID"] = new SelectList(_context.Member, "ID", "ID");
+            ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
+            ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID");
+            ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
+            ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID");
             return View();
         }
 
@@ -64,7 +72,7 @@ namespace SacramentMeetingPlanner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,WardID,PresidingID,ConductingID,Date,InvocationID,BenedictionID")] SMP sMP)
+        public async Task<IActionResult> Create([Bind("ID,WardID,PresidingID,ConductingID,Date,OpeningHymnID,SacramentHymnID,IntermediateHymnID,ClosingHymnID,InvocationID,BenedictionID")] SMP sMP)
         {
             if (ModelState.IsValid)
             {
@@ -72,11 +80,15 @@ namespace SacramentMeetingPlanner.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BenedictionID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.BenedictionID);
-            ViewData["ConductingID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.ConductingID);
-            ViewData["InvocationID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.InvocationID);
-            ViewData["PresidingID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.PresidingID);
-            ViewData["WardID"] = new SelectList(_context.Set<Ward>(), "ID", "ID", sMP.WardID);
+            ViewData["BenedictionID"] = new SelectList(_context.Member, "ID", "ID", sMP.BenedictionID);
+            ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.ClosingHymnID);
+            ViewData["ConductingID"] = new SelectList(_context.Member, "ID", "ID", sMP.ConductingID);
+            ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.IntermediateHymnID);
+            ViewData["InvocationID"] = new SelectList(_context.Member, "ID", "ID", sMP.InvocationID);
+            ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.OpeningHymnID);
+            ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID", sMP.PresidingID);
+            ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.SacramentHymnID);
+            ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID", sMP.WardID);
             return View(sMP);
         }
 
@@ -93,11 +105,15 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 return NotFound();
             }
-            ViewData["BenedictionID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.BenedictionID);
-            ViewData["ConductingID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.ConductingID);
-            ViewData["InvocationID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.InvocationID);
-            ViewData["PresidingID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.PresidingID);
-            ViewData["WardID"] = new SelectList(_context.Set<Ward>(), "ID", "ID", sMP.WardID);
+            ViewData["BenedictionID"] = new SelectList(_context.Member, "ID", "ID", sMP.BenedictionID);
+            ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.ClosingHymnID);
+            ViewData["ConductingID"] = new SelectList(_context.Member, "ID", "ID", sMP.ConductingID);
+            ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.IntermediateHymnID);
+            ViewData["InvocationID"] = new SelectList(_context.Member, "ID", "ID", sMP.InvocationID);
+            ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.OpeningHymnID);
+            ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID", sMP.PresidingID);
+            ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.SacramentHymnID);
+            ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID", sMP.WardID);
             return View(sMP);
         }
 
@@ -106,7 +122,7 @@ namespace SacramentMeetingPlanner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,WardID,PresidingID,ConductingID,Date,InvocationID,BenedictionID")] SMP sMP)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,WardID,PresidingID,ConductingID,Date,OpeningHymnID,SacramentHymnID,IntermediateHymnID,ClosingHymnID,InvocationID,BenedictionID")] SMP sMP)
         {
             if (id != sMP.ID)
             {
@@ -133,11 +149,15 @@ namespace SacramentMeetingPlanner.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BenedictionID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.BenedictionID);
-            ViewData["ConductingID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.ConductingID);
-            ViewData["InvocationID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.InvocationID);
-            ViewData["PresidingID"] = new SelectList(_context.Set<Member>(), "ID", "ID", sMP.PresidingID);
-            ViewData["WardID"] = new SelectList(_context.Set<Ward>(), "ID", "ID", sMP.WardID);
+            ViewData["BenedictionID"] = new SelectList(_context.Member, "ID", "ID", sMP.BenedictionID);
+            ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.ClosingHymnID);
+            ViewData["ConductingID"] = new SelectList(_context.Member, "ID", "ID", sMP.ConductingID);
+            ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.IntermediateHymnID);
+            ViewData["InvocationID"] = new SelectList(_context.Member, "ID", "ID", sMP.InvocationID);
+            ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.OpeningHymnID);
+            ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID", sMP.PresidingID);
+            ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.SacramentHymnID);
+            ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID", sMP.WardID);
             return View(sMP);
         }
 
@@ -151,9 +171,13 @@ namespace SacramentMeetingPlanner.Controllers
 
             var sMP = await _context.SMP
                 .Include(s => s.Benediction)
+                .Include(s => s.ClosingHymn)
                 .Include(s => s.Conducting)
+                .Include(s => s.IntermediateHymn)
                 .Include(s => s.Invocation)
+                .Include(s => s.OpeningHymn)
                 .Include(s => s.Presiding)
+                .Include(s => s.SacramentHymn)
                 .Include(s => s.Ward)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (sMP == null)

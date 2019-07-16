@@ -1,0 +1,49 @@
+﻿@model SacramentMeetingPlanner.Models.Ward
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Ward</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BishopID" class="control-label"></label>
+                <select asp-for="BishopID" class="form-control" asp-items="ViewBag.BishopID"></select>
+                <span asp-validation-for="BishopID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstID" class="control-label"></label>
+                <select asp-for="FirstID" class="form-control" asp-items="ViewBag.FirstID"></select>
+                <span asp-validation-for="FirstID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecondID" class="control-label"></label>
+                <select asp-for="SecondID" class="form-control" asp-items="ViewBag.SecondID"></select>
+                <span asp-validation-for="SecondID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

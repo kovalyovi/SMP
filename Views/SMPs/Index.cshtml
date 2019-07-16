@@ -25,6 +25,18 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.OpeningHymn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SacramentHymn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IntermediateHymn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingHymn)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Invocation)
             </th>
             <th>
@@ -47,6 +59,18 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OpeningHymn.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SacramentHymn.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IntermediateHymn.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosingHymn.ID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Invocation.ID)

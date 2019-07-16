@@ -27,11 +27,7 @@ namespace SacramentMeetingPlanner.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("SMPID");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("SMPID");
 
                     b.ToTable("Hymn");
                 });
@@ -46,11 +42,7 @@ namespace SacramentMeetingPlanner.Migrations
 
                     b.Property<string>("LastName");
 
-                    b.Property<int?>("SMPID");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("SMPID");
 
                     b.ToTable("Member");
                 });
@@ -63,13 +55,21 @@ namespace SacramentMeetingPlanner.Migrations
 
                     b.Property<int>("BenedictionID");
 
+                    b.Property<int>("ClosingHymnID");
+
                     b.Property<int>("ConductingID");
 
                     b.Property<DateTime>("Date");
 
+                    b.Property<int>("IntermediateHymnID");
+
                     b.Property<int>("InvocationID");
 
+                    b.Property<int>("OpeningHymnID");
+
                     b.Property<int>("PresidingID");
+
+                    b.Property<int>("SacramentHymnID");
 
                     b.Property<int>("WardID");
 
@@ -77,15 +77,40 @@ namespace SacramentMeetingPlanner.Migrations
 
                     b.HasIndex("BenedictionID");
 
+                    b.HasIndex("ClosingHymnID");
+
                     b.HasIndex("ConductingID");
+
+                    b.HasIndex("IntermediateHymnID");
 
                     b.HasIndex("InvocationID");
 
+                    b.HasIndex("OpeningHymnID");
+
                     b.HasIndex("PresidingID");
+
+                    b.HasIndex("SacramentHymnID");
 
                     b.HasIndex("WardID");
 
                     b.ToTable("SMP");
+                });
+
+            modelBuilder.Entity("SacramentMeetingPlanner.Models.Speakers", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("MemberID");
+
+                    b.Property<int>("SMPID");
+
+                    b.Property<string>("Topic");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Speakers");
                 });
 
             modelBuilder.Entity("SacramentMeetingPlanner.Models.Ward", b =>
@@ -113,20 +138,6 @@ namespace SacramentMeetingPlanner.Migrations
                     b.ToTable("Ward");
                 });
 
-            modelBuilder.Entity("SacramentMeetingPlanner.Models.Hymn", b =>
-                {
-                    b.HasOne("SacramentMeetingPlanner.Models.SMP")
-                        .WithMany("Hymns")
-                        .HasForeignKey("SMPID");
-                });
-
-            modelBuilder.Entity("SacramentMeetingPlanner.Models.Member", b =>
-                {
-                    b.HasOne("SacramentMeetingPlanner.Models.SMP")
-                        .WithMany("Speakers")
-                        .HasForeignKey("SMPID");
-                });
-
             modelBuilder.Entity("SacramentMeetingPlanner.Models.SMP", b =>
                 {
                     b.HasOne("SacramentMeetingPlanner.Models.Member", "Benediction")
@@ -134,9 +145,19 @@ namespace SacramentMeetingPlanner.Migrations
                         .HasForeignKey("BenedictionID")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("SacramentMeetingPlanner.Models.Hymn", "ClosingHymn")
+                        .WithMany()
+                        .HasForeignKey("ClosingHymnID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("SacramentMeetingPlanner.Models.Member", "Conducting")
                         .WithMany()
                         .HasForeignKey("ConductingID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SacramentMeetingPlanner.Models.Hymn", "IntermediateHymn")
+                        .WithMany()
+                        .HasForeignKey("IntermediateHymnID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SacramentMeetingPlanner.Models.Member", "Invocation")
@@ -144,9 +165,19 @@ namespace SacramentMeetingPlanner.Migrations
                         .HasForeignKey("InvocationID")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("SacramentMeetingPlanner.Models.Hymn", "OpeningHymn")
+                        .WithMany()
+                        .HasForeignKey("OpeningHymnID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("SacramentMeetingPlanner.Models.Member", "Presiding")
                         .WithMany()
                         .HasForeignKey("PresidingID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SacramentMeetingPlanner.Models.Hymn", "SacramentHymn")
+                        .WithMany()
+                        .HasForeignKey("SacramentHymnID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SacramentMeetingPlanner.Models.Ward", "Ward")
