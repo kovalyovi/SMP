@@ -61,11 +61,23 @@ namespace SacramentMeetingPlanner.Controllers
                 Text = i.FirstName + " " + i.LastName
             }).ToList();
             ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
-            ViewData["ConductingID"] = new SelectList(_context.Member, "ID", "FirstName", "LastName");
+            ViewData["ConductingID"] = _context.Member.Select(i => new SelectListItem
+            {
+                Value = i.ID.ToString(),
+                Text = i.FirstName + " " + i.LastName
+            }).ToList();
             ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
-            ViewData["InvocationID"] = new SelectList(_context.Member, "ID", "ID");
+            ViewData["InvocationID"] = _context.Member.Select(i => new SelectListItem
+            {
+                Value = i.ID.ToString(),
+                Text = i.FirstName + " " + i.LastName
+            }).ToList();
             ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
-            ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID");
+            ViewData["PresidingID"] = _context.Member.Select(i => new SelectListItem
+            {
+                Value = i.ID.ToString(),
+                Text = i.FirstName + " " + i.LastName
+            }).ToList();
             ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
             ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID");
             return View();
