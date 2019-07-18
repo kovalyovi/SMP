@@ -55,9 +55,13 @@ namespace SacramentMeetingPlanner.Controllers
         // GET: SMPs/Create
         public IActionResult Create()
         {
-            ViewData["BenedictionID"] = new SelectList(_context.Member, "ID", "ID");
+            ViewData["BenedictionID"] = _context.Member.Select(i => new SelectListItem
+            {
+                Value = i.ID.ToString(),
+                Text = i.FirstName + " " + i.LastName
+            }).ToList();
             ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
-            ViewData["ConductingID"] = new SelectList(_context.Member, "ID", "ID");
+            ViewData["ConductingID"] = new SelectList(_context.Member, "ID", "FirstName", "LastName");
             ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
             ViewData["InvocationID"] = new SelectList(_context.Member, "ID", "ID");
             ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
