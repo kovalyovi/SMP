@@ -7,68 +7,72 @@
 <h1>Details</h1>
 
 <div>
-    <h4>SMP</h4>
+    <h4>Sacrament Meeting Plan</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Ward)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ward.ID)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Ward.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Presiding)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Presiding.ID)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Presiding.FirstName)
+            @Html.DisplayFor(model => model.Presiding.LastName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Conducting)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Conducting.ID)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Conducting.FirstName)
+            @Html.DisplayFor(model => model.Conducting.LastName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Date)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Date)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.OpeningHymn)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OpeningHymn.ID)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OpeningHymn.Name)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SacramentHymn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SacramentHymn.ID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IntermediateHymn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IntermediateHymn.ID)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ClosingHymn)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ClosingHymn.ID)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Invocation)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Invocation.ID)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Invocation.FirstName)
+            @Html.DisplayFor(model => model.Invocation.LastName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SacramentHymn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SacramentHymn.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IntermediateHymn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IntermediateHymn.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ClosingHymn)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ClosingHymn.Name)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Benediction)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Benediction.ID)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Benediction.FirstName)
+            @Html.DisplayFor(model => model.Benediction.LastName)
         </dd>
     </dl>
 </div>

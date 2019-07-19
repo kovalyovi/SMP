@@ -12,10 +12,11 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MemberID)
+            @Html.DisplayNameFor(model => model.Speaker)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MemberID)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Speaker.FirstName)
+            @Html.DisplayFor(model => model.Speaker.LastName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Topic)

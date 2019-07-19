@@ -21,7 +21,8 @@ namespace SacramentMeetingPlanner.Controllers
         // GET: Speakers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Speakers.ToListAsync());
+            var speakersContext = _context.Speakers.Include(s => s.Speaker).Include(s => s.SMP);
+            return View(await speakersContext.ToListAsync());
         }
 
         // GET: Speakers/Details/5
@@ -33,6 +34,8 @@ namespace SacramentMeetingPlanner.Controllers
             }
 
             var speakers = await _context.Speakers
+                .Include(s => s.Speaker)
+                .Include(s => s.SMP)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (speakers == null)
             {
@@ -43,17 +46,29 @@ namespace SacramentMeetingPlanner.Controllers
         }
 
         // GET: Speakers/Create
-        public IActionResult Create()
+        public IActionResult Create(int SMPID)
         {
+            var members = _context.Member.Select(s => new
+            {
+                ID = s.ID,
+                FullName = string.Format("{0} {1}", s.FirstName, s.LastName)
+            }).ToList();
+
+            var selectedValue = _context.SMP.Where(s => s.ID == SMPID);
+
+            ViewData["SpeakerID"] = new SelectList(members, "ID", "FullName");
+            ViewData["SMPID"] = new SelectList(_context.SMP, "ID", "ID", selectedValue);
             return View();
         }
+
+
 
         // POST: Speakers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,MemberID,Topic,SMPID")] Speakers speakers)
+        public async Task<IActionResult> Create([Bind("ID,SpeakerID,Topic,SMPID")] Speakers speakers)
         {
             if (ModelState.IsValid)
             {
@@ -61,6 +76,10 @@ namespace SacramentMeetingPlanner.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["SpeakerID"] = new SelectList(_context.Member, "ID", "ID", speakers.SpeakerID);
+            ViewData["SMPID"] = new SelectList(_context.SMP, "ID", "ID", speakers.SMPID);
+
             return View(speakers);
         }
 
@@ -77,6 +96,16 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 return NotFound();
             }
+
+            var members = _context.Member.Select(s => new
+            {
+                ID = s.ID,
+                FullName = string.Format("{0} {1}", s.FirstName, s.LastName)
+            }).ToList();
+
+            ViewData["SpeakerID"] = new SelectList(members, "ID", "FullName", speakers.SpeakerID);
+            ViewData["SMPID"] = new SelectList(_context.SMP, "ID", "ID", speakers.SMPID);
+
             return View(speakers);
         }
 
@@ -85,7 +114,7 @@ namespace SacramentMeetingPlanner.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,MemberID,Topic,SMPID")] Speakers speakers)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,SpeakerID,Topic,SMPID")] Speakers speakers)
         {
             if (id != speakers.ID)
             {
@@ -112,6 +141,9 @@ namespace SacramentMeetingPlanner.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["SpeakerID"] = new SelectList(_context.Member, "ID", "ID", speakers.SpeakerID);
+            ViewData["SMPID"] = new SelectList(_context.SMP, "ID", "ID", speakers.SMPID);
             return View(speakers);
         }
 
@@ -124,6 +156,8 @@ namespace SacramentMeetingPlanner.Controllers
             }
 
             var speakers = await _context.Speakers
+                .Include(s => s.Speaker)
+                .Include(s => s.SMP)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (speakers == null)
             {

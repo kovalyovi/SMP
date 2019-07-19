@@ -12,7 +12,6 @@ namespace SacramentMeetingPlanner.Controllers
     public class WardsController : Controller
     {
         private readonly SacramentMeetingPlannerContext _context;
-
         public WardsController(SacramentMeetingPlannerContext context)
         {
             _context = context;
@@ -49,9 +48,14 @@ namespace SacramentMeetingPlanner.Controllers
         // GET: Wards/Create
         public IActionResult Create()
         {
-            ViewData["BishopID"] = new SelectList(_context.Member, "ID", "ID");
-            ViewData["FirstID"] = new SelectList(_context.Member, "ID", "ID");
-            ViewData["SecondID"] = new SelectList(_context.Member, "ID", "ID");
+            var members = _context.Member.Select(s => new
+            {
+                ID = s.ID,
+                FullName = string.Format("{0} {1}", s.FirstName, s.LastName)
+            }).ToList();
+            ViewData["BishopID"] = new SelectList(members, "ID", "FullName");
+            ViewData["FirstID"] = new SelectList(members, "ID", "FullName");
+            ViewData["SecondID"] = new SelectList(members, "ID", "FullName");
             return View();
         }
 
@@ -68,9 +72,14 @@ namespace SacramentMeetingPlanner.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BishopID"] = new SelectList(_context.Member, "ID", "ID", ward.BishopID);
-            ViewData["FirstID"] = new SelectList(_context.Member, "ID", "ID", ward.FirstID);
-            ViewData["SecondID"] = new SelectList(_context.Member, "ID", "ID", ward.SecondID);
+            var members = _context.Member.Select(s => new
+            {
+                ID = s.ID,
+                FullName = string.Format("{0} {1}", s.FirstName, s.LastName)
+            }).ToList();
+            ViewData["BishopID"] = new SelectList(members, "ID", "FullName", ward.BishopID);
+            ViewData["FirstID"] = new SelectList(members, "ID", "FullName", ward.FirstID);
+            ViewData["SecondID"] = new SelectList(members, "ID", "FullName", ward.SecondID);
             return View(ward);
         }
 
@@ -87,9 +96,14 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 return NotFound();
             }
-            ViewData["BishopID"] = new SelectList(_context.Member, "ID", "ID", ward.BishopID);
-            ViewData["FirstID"] = new SelectList(_context.Member, "ID", "ID", ward.FirstID);
-            ViewData["SecondID"] = new SelectList(_context.Member, "ID", "ID", ward.SecondID);
+            var members = _context.Member.Select(s => new
+            {
+                ID = s.ID,
+                FullName = string.Format("{0} {1}", s.FirstName, s.LastName)
+            }).ToList();
+            ViewData["BishopID"] = new SelectList(members, "ID", "FullName");
+            ViewData["FirstID"] = new SelectList(members, "ID", "FullName");
+            ViewData["SecondID"] = new SelectList(members, "ID", "FullName");
             return View(ward);
         }
 
@@ -125,9 +139,14 @@ namespace SacramentMeetingPlanner.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BishopID"] = new SelectList(_context.Member, "ID", "ID", ward.BishopID);
-            ViewData["FirstID"] = new SelectList(_context.Member, "ID", "ID", ward.FirstID);
-            ViewData["SecondID"] = new SelectList(_context.Member, "ID", "ID", ward.SecondID);
+            var members = _context.Member.Select(s => new
+            {
+                ID = s.ID,
+                FullName = string.Format("{0} {1}", s.FirstName, s.LastName)
+            }).ToList();
+            ViewData["BishopID"] = new SelectList(members, "ID", "FullName", ward.BishopID);
+            ViewData["FirstID"] = new SelectList(members, "ID", "FullName", ward.FirstID);
+            ViewData["SecondID"] = new SelectList(members, "ID", "FullName", ward.SecondID);
             return View(ward);
         }
 
