@@ -96,7 +96,7 @@ namespace SacramentMeetingPlanner.Controllers
             ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID", sMP.PresidingID);
             ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.SacramentHymnID);
             ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID", sMP.WardID);
-            return RedirectToAction("Create", "Speakers", new { id = sMP.ID});
+            return RedirectToAction("Create", "Speakers", new { SMPID = sMP.ID});
         }
 
         // GET: SMPs/Edit/5

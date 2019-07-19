@@ -58,6 +58,7 @@ namespace SacramentMeetingPlanner.Controllers
 
             ViewData["SpeakerID"] = new SelectList(members, "ID", "FullName");
             ViewData["SMPID"] = new SelectList(_context.SMP, "ID", "ID", selectedValue);
+
             return View();
         }
 
@@ -74,13 +75,14 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 _context.Add(speakers);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create", "Speakers", new { SMPID = speakers.SMPID });
+                //return RedirectToAction(nameof(Index));
             }
 
             ViewData["SpeakerID"] = new SelectList(_context.Member, "ID", "ID", speakers.SpeakerID);
             ViewData["SMPID"] = new SelectList(_context.SMP, "ID", "ID", speakers.SMPID);
 
-            return RedirectToAction("Create", new { id = speakers.SMPID});
+            return RedirectToAction("Create", "Speakers", new { SMPID = speakers.SMPID});
         }
 
         // GET: Speakers/Edit/5
