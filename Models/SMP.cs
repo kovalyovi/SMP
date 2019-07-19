@@ -53,6 +53,5 @@ namespace SacramentMeetingPlanner.Models
         [DisplayName("Benediction")]
         public Member Benediction { get; set; }
 
-
     }
 }

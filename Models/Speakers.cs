@@ -20,6 +20,5 @@ namespace SacramentMeetingPlanner.Models
         [DisplayName("Sacrament Meeting Planner")]
         public SMP SMP { get; set; }
 
-
     }
 }

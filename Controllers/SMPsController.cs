@@ -70,6 +70,7 @@ namespace SacramentMeetingPlanner.Controllers
             ViewData["PresidingID"] = new SelectList(members, "ID", "FullName");
             ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "Name");
             ViewData["WardID"] = new SelectList(_context.Ward, "ID", "Name");
+            ViewData["Speakers"] = new SelectList(members, "ID", "FullName");
             return View();
         }
 
@@ -84,7 +85,7 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 _context.Add(sMP);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
             }
             ViewData["BenedictionID"] = new SelectList(_context.Member, "ID", "ID", sMP.BenedictionID);
             ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.ClosingHymnID);
@@ -95,7 +96,7 @@ namespace SacramentMeetingPlanner.Controllers
             ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID", sMP.PresidingID);
             ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.SacramentHymnID);
             ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID", sMP.WardID);
-            return View(sMP);
+            return RedirectToAction("Create", "Speakers", new { id = sMP.ID});
         }
 
         // GET: SMPs/Edit/5

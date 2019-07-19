@@ -80,7 +80,7 @@ namespace SacramentMeetingPlanner.Controllers
             ViewData["SpeakerID"] = new SelectList(_context.Member, "ID", "ID", speakers.SpeakerID);
             ViewData["SMPID"] = new SelectList(_context.SMP, "ID", "ID", speakers.SMPID);
 
-            return View(speakers);
+            return RedirectToAction("Create", new { id = speakers.SMPID});
         }
 
         // GET: Speakers/Edit/5

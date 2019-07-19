@@ -194,7 +194,7 @@ namespace SacramentMeetingPlanner.Migrations
             modelBuilder.Entity("SacramentMeetingPlanner.Models.Speakers", b =>
                 {
                     b.HasOne("SacramentMeetingPlanner.Models.SMP", "SMP")
-                        .WithMany()
+                        .WithMany("Speakers")
                         .HasForeignKey("SMPID")
                         .OnDelete(DeleteBehavior.Cascade);
 
