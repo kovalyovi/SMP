@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SacramentMeetingPlanner.Migrations
 {
-    public partial class SecondEdition : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -33,21 +33,6 @@ namespace SacramentMeetingPlanner.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Member", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Speakers",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MemberID = table.Column<int>(nullable: false),
-                    Topic = table.Column<string>(nullable: true),
-                    SMPID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Speakers", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -148,6 +133,31 @@ namespace SacramentMeetingPlanner.Migrations
                         principalColumn: "ID");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Speakers",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    MemberID = table.Column<int>(nullable: false),
+                    Topic = table.Column<string>(nullable: true),
+                    SMPID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Speakers", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Speakers_Member_MemberID",
+                        column: x => x.MemberID,
+                        principalTable: "Member",
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_Speakers_SMP_SMPID",
+                        column: x => x.SMPID,
+                        principalTable: "SMP",
+                        principalColumn: "ID");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_SMP_BenedictionID",
                 table: "SMP",
@@ -194,6 +204,16 @@ namespace SacramentMeetingPlanner.Migrations
                 column: "WardID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Speakers_MemberID",
+                table: "Speakers",
+                column: "MemberID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Speakers_SMPID",
+                table: "Speakers",
+                column: "SMPID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ward_BishopID",
                 table: "Ward",
                 column: "BishopID");
@@ -212,10 +232,10 @@ namespace SacramentMeetingPlanner.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SMP");
+                name: "Speakers");
 
             migrationBuilder.DropTable(
-                name: "Speakers");
+                name: "SMP");
 
             migrationBuilder.DropTable(
                 name: "Hymn");

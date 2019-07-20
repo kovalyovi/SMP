@@ -10,8 +10,8 @@ using SacramentMeetingPlanner.Models;
 namespace SacramentMeetingPlanner.Migrations
 {
     [DbContext(typeof(SacramentMeetingPlannerContext))]
-    [Migration("20190716170209_SecondEdition")]
-    partial class SecondEdition
+    [Migration("20190718233325_updatedSpeakerTwo")]
+    partial class updatedSpeakerTwo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,7 +61,8 @@ namespace SacramentMeetingPlanner.Migrations
 
                     b.Property<int>("ConductingID");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("date");
 
                     b.Property<int>("IntermediateHymnID");
 
@@ -104,13 +105,17 @@ namespace SacramentMeetingPlanner.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MemberID");
-
                     b.Property<int>("SMPID");
+
+                    b.Property<int>("SpeakerID");
 
                     b.Property<string>("Topic");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("SMPID");
+
+                    b.HasIndex("SpeakerID");
 
                     b.ToTable("Speakers");
                 });
@@ -185,6 +190,19 @@ namespace SacramentMeetingPlanner.Migrations
                     b.HasOne("SacramentMeetingPlanner.Models.Ward", "Ward")
                         .WithMany()
                         .HasForeignKey("WardID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SacramentMeetingPlanner.Models.Speakers", b =>
+                {
+                    b.HasOne("SacramentMeetingPlanner.Models.SMP", "SMP")
+                        .WithMany()
+                        .HasForeignKey("SMPID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SacramentMeetingPlanner.Models.Member", "Speaker")
+                        .WithMany()
+                        .HasForeignKey("SpeakerID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

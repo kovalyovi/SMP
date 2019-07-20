@@ -14,9 +14,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <label asp-for="MemberID" class="control-label"></label>
-                <input asp-for="MemberID" class="form-control" />
-                <span asp-validation-for="MemberID" class="text-danger"></span>
+                <label asp-for="SpeakerID" class="control-label"></label>
+                <select asp-for="SpeakerID" class="form-control" asp-items="ViewBag.SpeakerID"></select>
+                <span asp-validation-for="SpeakerID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Topic" class="control-label"></label>
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="SMPID" class="control-label"></label>
-                <input asp-for="SMPID" class="form-control" />
+                <select asp-for="SMPID" class="form-control" asp-items="ViewBag.SMPID"></select>
                 <span asp-validation-for="SMPID" class="text-danger"></span>
             </div>
             <div class="form-group">

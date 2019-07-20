@@ -13,55 +13,53 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="WardID" class="control-label"></label>
-                <select asp-for="WardID" class ="form-control" asp-items="ViewBag.WardID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="PresidingID" class="control-label"></label>
-                <select asp-for="PresidingID" class ="form-control" asp-items="ViewBag.PresidingID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ConductingID" class="control-label"></label>
-                <select asp-for="ConductingID" class ="form-control" asp-items="ViewBag.ConductingID"></select>
-            </div>
-            <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="WardID" class="control-label"></label>
+                <select asp-for="WardID" class="form-control" asp-items="ViewBag.WardID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PresidingID" class="control-label"></label>
+                <select asp-for="PresidingID" class="form-control" asp-items="ViewBag.PresidingID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConductingID" class="control-label"></label>
+                <select asp-for="ConductingID" class="form-control" asp-items="ViewBag.ConductingID"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="OpeningHymnID" class="control-label"></label>
-                <select asp-for="OpeningHymnID" class ="form-control" asp-items="ViewBag.OpeningHymnID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="SacramentHymnID" class="control-label"></label>
-                <select asp-for="SacramentHymnID" class ="form-control" asp-items="ViewBag.SacramentHymnID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="IntermediateHymnID" class="control-label"></label>
-                <select asp-for="IntermediateHymnID" class ="form-control" asp-items="ViewBag.IntermediateHymnID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClosingHymnID" class="control-label"></label>
-                <select asp-for="ClosingHymnID" class ="form-control" asp-items="ViewBag.ClosingHymnID"></select>
+                <select asp-for="OpeningHymnID" class="form-control" asp-items="ViewBag.OpeningHymnID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="InvocationID" class="control-label"></label>
-                <select asp-for="InvocationID" class ="form-control" asp-items="ViewBag.InvocationID"></select>
+                <select asp-for="InvocationID" class="form-control" asp-items="ViewBag.InvocationID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SacramentHymnID" class="control-label"></label>
+                <select asp-for="SacramentHymnID" class="form-control" asp-items="ViewBag.SacramentHymnID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IntermediateHymnID" class="control-label"></label>
+                <select asp-for="IntermediateHymnID" class="form-control" asp-items="ViewBag.IntermediateHymnID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClosingHymnID" class="control-label"></label>
+                <select asp-for="ClosingHymnID" class="form-control" asp-items="ViewBag.ClosingHymnID"></select>
             </div>
             <div class="form-group">
                 <label asp-for="BenedictionID" class="control-label"></label>
-                <select asp-for="BenedictionID" class ="form-control" asp-items="ViewBag.BenedictionID"></select>
+                <select asp-for="BenedictionID" class="form-control" asp-items="ViewBag.BenedictionID"></select>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+            <input type="submit" value="Create" class="btn btn-primary" />
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="SMPs" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

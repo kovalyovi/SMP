@@ -55,15 +55,22 @@ namespace SacramentMeetingPlanner.Controllers
         // GET: SMPs/Create
         public IActionResult Create()
         {
-            ViewData["BenedictionID"] = new SelectList(_context.Member, "ID", "ID");
-            ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
-            ViewData["ConductingID"] = new SelectList(_context.Member, "ID", "ID");
-            ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
-            ViewData["InvocationID"] = new SelectList(_context.Member, "ID", "ID");
-            ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
-            ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID");
-            ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID");
-            ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID");
+            var members = _context.Member.Select(s => new
+            {
+                ID = s.ID,
+                FullName = string.Format("{0} {1}", s.FirstName, s.LastName)
+            }).ToList();
+
+            ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "Name");
+            ViewData["BenedictionID"] = new SelectList(members, "ID", "FullName");
+            ViewData["ConductingID"] = new SelectList(members, "ID", "FullName");
+            ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "Name");
+            ViewData["InvocationID"] = new SelectList(members, "ID", "FullName");
+            ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "Name");
+            ViewData["PresidingID"] = new SelectList(members, "ID", "FullName");
+            ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "Name");
+            ViewData["WardID"] = new SelectList(_context.Ward, "ID", "Name");
+            ViewData["Speakers"] = new SelectList(members, "ID", "FullName");
             return View();
         }
 
@@ -78,7 +85,7 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 _context.Add(sMP);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
             }
             ViewData["BenedictionID"] = new SelectList(_context.Member, "ID", "ID", sMP.BenedictionID);
             ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.ClosingHymnID);
@@ -89,7 +96,7 @@ namespace SacramentMeetingPlanner.Controllers
             ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID", sMP.PresidingID);
             ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.SacramentHymnID);
             ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID", sMP.WardID);
-            return View(sMP);
+            return RedirectToAction("Create", "Speakers", new { SMPID = sMP.ID});
         }
 
         // GET: SMPs/Edit/5
@@ -105,15 +112,22 @@ namespace SacramentMeetingPlanner.Controllers
             {
                 return NotFound();
             }
-            ViewData["BenedictionID"] = new SelectList(_context.Member, "ID", "ID", sMP.BenedictionID);
-            ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.ClosingHymnID);
-            ViewData["ConductingID"] = new SelectList(_context.Member, "ID", "ID", sMP.ConductingID);
-            ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.IntermediateHymnID);
-            ViewData["InvocationID"] = new SelectList(_context.Member, "ID", "ID", sMP.InvocationID);
-            ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.OpeningHymnID);
-            ViewData["PresidingID"] = new SelectList(_context.Member, "ID", "ID", sMP.PresidingID);
-            ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "ID", sMP.SacramentHymnID);
-            ViewData["WardID"] = new SelectList(_context.Ward, "ID", "ID", sMP.WardID);
+            var members = _context.Member.Select(s => new
+            {
+                ID = s.ID,
+                FullName = string.Format("{0} {1}", s.FirstName, s.LastName)
+            }).ToList();
+
+            ViewData["ClosingHymnID"] = new SelectList(_context.Hymn, "ID", "Name", sMP.BenedictionID);
+            ViewData["BenedictionID"] = new SelectList(members, "ID", "FullName", sMP.ClosingHymnID);
+            ViewData["ConductingID"] = new SelectList(members, "ID", "FullName", sMP.ConductingID);
+            ViewData["IntermediateHymnID"] = new SelectList(_context.Hymn, "ID", "Name", sMP.IntermediateHymnID);
+            ViewData["InvocationID"] = new SelectList(members, "ID", "FullName", sMP.InvocationID);
+            ViewData["OpeningHymnID"] = new SelectList(_context.Hymn, "ID", "Name", sMP.OpeningHymnID);
+            ViewData["PresidingID"] = new SelectList(members, "ID", "FullName", sMP.PresidingID);
+            ViewData["SacramentHymnID"] = new SelectList(_context.Hymn, "ID", "Name", sMP.SacramentHymnID);
+            ViewData["WardID"] = new SelectList(_context.Ward, "ID", "Name", sMP.WardID);
+
             return View(sMP);
         }
 
@@ -187,6 +201,12 @@ namespace SacramentMeetingPlanner.Controllers
 
             return View(sMP);
         }
+
+        public async Task<IActionResult> Build()
+        {
+            return View();
+        }
+
 
         // POST: SMPs/Delete/5
         [HttpPost, ActionName("Delete")]

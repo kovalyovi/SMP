@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,10 +14,13 @@ namespace SacramentMeetingPlanner.Models
         public int BishopID { get; set; }
         public Member Bishop { get; set; }
 
+        [DisplayName("First Counselor")]
         public int FirstID { get; set; }
+        [DisplayName("First Counselor")]
         public Member First { get; set; }
-
+        [DisplayName("Second Counselor")]
         public int SecondID { get; set; }
+        [DisplayName("Second Counselor")]
         public Member Second { get; set; }
     }
 }
