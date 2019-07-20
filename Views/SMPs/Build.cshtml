@@ -14,7 +14,7 @@
     }
 
     .center-sub {
-        margin: 5px; 
+        margin: 5px;
         text-align: center;
     }
 
@@ -149,6 +149,12 @@
                 <div class="center">"@spekNa"</div>
             </div>
         }
+    }
+    else
+    {
+        <div class="container-view">
+            <div class="center-sub">Testimony Meeting</div>
+        </div>
     }
 
     var clos = Model.Hymns.Where(i => i.ID == Model.SMP.ClosingHymnID).FirstOrDefault();
