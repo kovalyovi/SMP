@@ -1,7 +1,180 @@
-﻿
+﻿@model SacramentMeetingPlanner.Models.IndexViewData
+
 @{
     ViewData["Title"] = "Build";
 }
 
-<h1>Build</h1>
+<style>
+    .container-view {
+        width: 50%;
+    }
+
+    h4 {
+        text-align: center;
+    }
+
+    .center-sub {
+        margin: 5px; 
+        text-align: center;
+    }
+
+    .center {
+        font-style: italic;
+        text-align: center;
+        padding: 2px;
+    }
+
+    .left, .right {
+        padding: 1px 0.5em;
+        background: #fff;
+        float: right;
+        height: 1em;
+    }
+
+    .left {
+        float: left;
+        clear: both;
+    }
+
+    .dotted {
+        height: 1em;
+        border-bottom: 2px dotted grey;
+    }
+</style>
+
+<div class="container-view">
+    <h4>@Model.Ward.Name</h4>
+    <h4>@Model.SMP.Date.ToString("dddd, dd MMMM yyyy")</h4>
+</div>
+
+
+@{
+    var pres = Model.Members.Where(i => i.ID == Model.SMP.PresidingID).FirstOrDefault();
+    string presDN = "Presiding";
+    string presFN = pres.FirstName;
+    string presLN = pres.LastName;
+
+    <div class="container-view">
+        <div class="left">@presDN</div>
+        <div class="right">@presFN @presLN</div>
+        <div class="dotted"></div>
+    </div>
+    <br />
+
+    var cond = Model.Members.Where(i => i.ID == Model.SMP.ConductingID).FirstOrDefault();
+    string condDN = "Conducting";
+    string condFN = cond.FirstName;
+    string condLN = cond.LastName;
+
+    <div class="container-view">
+        <div class="left">@condDN</div>
+        <div class="right">@condFN @condLN</div>
+        <div class="dotted"></div>
+    </div>
+    <br />
+
+    var open = Model.Hymns.Where(i => i.ID == Model.SMP.OpeningHymnID).FirstOrDefault();
+    string openDN = "Opening Hymn";
+    string openFN = "Page";
+    string openLN = open.ID.ToString();
+    string hymnNa = open.Name;
+
+    <div class="container-view">
+        <div class="left">@openDN</div>
+        <div class="right">@openFN @openLN</div>
+        <div class="dotted"></div>
+        <div class="center">"@hymnNa"</div>
+    </div>
+
+    var invo = Model.Members.Where(i => i.ID == Model.SMP.InvocationID).FirstOrDefault();
+    string invoDN = "Invocation";
+    string invoFN = invo.FirstName;
+    string invoLN = invo.LastName;
+
+    <div class="container-view">
+        <div class="left">@invoDN</div>
+        <div class="right">@invoFN @invoLN</div>
+        <div class="dotted"></div>
+        <div class="center-sub">Ward Business</div>
+    </div>
+
+    var sacr = Model.Hymns.Where(i => i.ID == Model.SMP.SacramentHymnID).FirstOrDefault();
+    string sacrDN = "Sacrament Hymn";
+    string sacrFN = "Page";
+    string sacrLN = sacr.ID.ToString();
+    string sacrNa = sacr.Name;
+
+    <div class="container-view">
+        <div class="left">@sacrDN</div>
+        <div class="right">@sacrFN @sacrLN</div>
+        <div class="dotted"></div>
+        <div class="center">"@sacrNa"</div>
+    </div>
+
+    <div class="container-view">
+        <div class="center-sub">Passing of the Sacrament by Aaronic Priesthood</div>
+    </div>
+
+
+    var spek = Model.Speakers.ToList();
+    if (spek != null)
+    {
+        for (int i = 0; i < spek.Count; i++)
+        {
+            if (spek.Count > 2 && i == 2 || i == 1)
+            {
+                var intr = Model.Hymns.Where(h => h.ID == Model.SMP.IntermediateHymnID).FirstOrDefault();
+                string intrDN = "Intermediate Hymn";
+                string intrFN = "Page";
+                string intrLN = intr.ID.ToString();
+                string intrNa = intr.Name;
+                <div class="container-view">
+                    <div class="left">@intrDN</div>
+                    <div class="right">@intrFN @intrLN</div>
+                    <div class="dotted"></div>
+                    <div class="center">"@intrNa"</div>
+                </div>
+            }
+            var speaker = spek.ElementAt(i);
+            var spekr = Model.Members.Where(m => m.ID == speaker.SpeakerID).FirstOrDefault();
+            string spekDN = "Speaker";
+            string spekFN = spekr.FirstName;
+            string spekLN = spekr.LastName;
+            string spekNa = speaker.Topic;
+
+            <div class="container-view">
+                <div class="left">@spekDN</div>
+                <div class="right">@spekFN @spekLN</div>
+                <div class="dotted"></div>
+                <div class="center">"@spekNa"</div>
+            </div>
+        }
+    }
+
+    var clos = Model.Hymns.Where(i => i.ID == Model.SMP.ClosingHymnID).FirstOrDefault();
+    string closDN = "Closing Hymn";
+    string closFN = "Page";
+    string closLN = clos.ID.ToString();
+    string closNa = clos.Name;
+
+    <div class="container-view">
+        <div class="left">@closDN</div>
+        <div class="right">@closFN @closLN</div>
+        <div class="dotted"></div>
+        <div class="center">"@closNa"</div>
+    </div>
+
+    var bene = Model.Members.Where(i => i.ID == Model.SMP.BenedictionID).FirstOrDefault();
+    string beneDN = "Benediction";
+    string beneFN = invo.FirstName;
+    string beneLN = invo.LastName;
+
+    <div class="container-view">
+        <div class="left">@beneDN</div>
+        <div class="right">@beneFN @beneLN</div>
+        <div class="dotted"></div>
+    </div>
+
+}
+
 
