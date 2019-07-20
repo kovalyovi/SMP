@@ -202,9 +202,16 @@ namespace SacramentMeetingPlanner.Controllers
             return View(sMP);
         }
 
-        public async Task<IActionResult> Build()
+        public async Task<IActionResult> Build(int id)
         {
-            return View();
+            var modelContainer = new IndexViewData();
+            modelContainer.Members = _context.Member;
+            modelContainer.Hymns = _context.Hymn;
+            modelContainer.Speakers = _context.Speakers.Where(i => i.SMPID == id).ToList();
+            modelContainer.SMP = _context.SMP.Where(i => i.ID == id).FirstOrDefault();
+            modelContainer.Ward = _context.Ward.
+                Where(i => i.ID == modelContainer.SMP.WardID).FirstOrDefault();
+            return View(modelContainer);
         }
 
 
